@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MSP Nepal</string>
+    <string name="search">Search..</string>
+    <string name="q">Q</string>
 </resources>
