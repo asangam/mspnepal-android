@@ -1,27 +1,24 @@
 package com.withhari.mspnepal;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         params.weight = 1;
+        a2z.setFocusable(true);
+        a2z.requestFocus();
         for (char a = 'A'; a <= 'Z'; a++) {
             TextView b = new TextView(this);
             b.setText(String.format("%c", a));
@@ -106,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void Show(String Str, boolean Filter) {
         List<MSP> msps = new ArrayList<>();
-        Cursor c = new MspDataBase(this).getMsp();
+        MspDataBase db = new MspDataBase(this);
+        Cursor c = db.getMsp();
+        if (Str != null) Str = Str.toLowerCase();
         if (c.moveToFirst()) {
             do {
                 MSP msp = new MSP(
@@ -117,15 +118,17 @@ public class MainActivity extends AppCompatActivity {
                 if (Str == null) {
                     msps.add(msp);
                 } else {
-                    if (Filter && (msp.FullName.startsWith(Str) || msp.College.startsWith(Str))) {
+                    if (Filter && (msp.FullName.toLowerCase().startsWith(Str) || msp.College.toLowerCase().startsWith(Str))) {
                         msps.add(msp);
                     }
-                    if (!Filter && (msp.FullName.contains(Str) || msp.College.contains(Str))) {
+                    if (!Filter && (msp.FullName.toLowerCase().contains(Str) || msp.College.toLowerCase().contains(Str))) {
                         msps.add(msp);
                     }
                 }
             } while (c.moveToNext());
         }
+        c.close();
+        db.close();
         ListView mspList = (ListView) findViewById(R.id.MspListView);
         assert mspList != null;
         mspList.setDivider(null);
