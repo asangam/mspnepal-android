@@ -2,13 +2,14 @@ package com.withhari.mspnepal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MspDataBase extends SQLiteOpenHelper {
 
     private final static String TABLE_NAME = "MSPS";
-    private final static String COL_NAME = "FullName", COL_COLLEGE = "College", COL_BIO = "Bio", COL_ID = "ID";
+    public final static String COL_NAME = "FullName", COL_COLLEGE = "College", COL_BIO = "Bio", COL_ID = "ID";
 
     public MspDataBase(Context context) {
         super(context, "MSPList", null, 1);
@@ -28,6 +29,12 @@ public class MspDataBase extends SQLiteOpenHelper {
         cv.put(COL_COLLEGE, msp.College);
         cv.put(COL_BIO, msp.Bio);
         return getWritableDatabase().insert(TABLE_NAME, null, cv);
+    }
+
+    public Cursor getMsp() {
+        return getReadableDatabase().query(TABLE_NAME, new String[] {
+                COL_NAME,COL_COLLEGE,COL_BIO
+        }, null, null, null , null, null );
     }
 
     @Override
