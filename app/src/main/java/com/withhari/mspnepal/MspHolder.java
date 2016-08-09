@@ -1,7 +1,14 @@
 package com.withhari.mspnepal;
 
-/**
- * Created by harimanok on 8/9/2016.
- */
+
+import android.view.View;
+import android.widget.TextView;
+
 public class MspHolder {
+    public TextView TxtName, TxtCollege, TxtF;
+    public MspHolder(View v) {
+        TxtName = (TextView) v.findViewById(R.id.fullName);
+        TxtCollege = (TextView) v.findViewById(R.id.college);
+        TxtF = (TextView) v.findViewById(R.id.firstLetter);
+    }
 }
