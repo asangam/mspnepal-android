@@ -17,10 +17,10 @@ public class MspDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "`" + COL_NAME + "` varchar," +
-                "`" + COL_BIO + "` varchar," +
-                "`" + COL_COLLEGE + "` varchar," +
-                "`" + COL_ID + "` integer NOT NULL PRIMARY KEY AUTOINCREMENT");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (`" + COL_NAME + "` text," +
+                " `" + COL_BIO + "` text," +
+                " `" + COL_COLLEGE + "` text," +
+                " `" + COL_ID + "` integer NOT NULL PRIMARY KEY AUTOINCREMENT);");
     }
 
     public long add(MSP msp) {
