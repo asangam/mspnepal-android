@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Helpers.setFirstRun(MainActivity.this, false);
-            Toast.makeText(MainActivity.this, "Ready!", Toast.LENGTH_SHORT).show();
+            Show();
         }
 
         @Override
